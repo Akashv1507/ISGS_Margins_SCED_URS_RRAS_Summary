@@ -1,0 +1,29 @@
+{% extends "layout.html.j2" %} 
+{% block title %}  ISGS Margins
+{% endblock %}
+
+{% block css %}  
+    <link href="{{ url_for('static', filename='Css/isgsMarginsIndex.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %} 
+{% block content %}
+    <div class="row mt-5 justify-content-md-center">
+        <div class="col-md-2">
+            <label for="targetDate"> Date</label>
+            <input type="date" name="targetDate" id="targetDate" />
+        </div>
+        <div class="col-md-4">
+            <label for="periodicity">Page Refresh Periodicity</label>
+            <input type="number" name="periodicity" id="periodicity" min="5" value="5" />
+        </div>       
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary" id="submitBtn">
+                Submit
+            </button>
+    </div>
+    <div id="errorDiv"></div>
+    <div id="plotDiv"></div>
+
+{% endblock %}
+{%block scripts%}
+    <script src="{{ url_for('static', filename='dist/isgsMargins.js') }}"></script>
+{% endblock %}
