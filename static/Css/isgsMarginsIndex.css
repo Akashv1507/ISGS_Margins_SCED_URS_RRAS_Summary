@@ -7,6 +7,11 @@ font-family: 'georgia';}
   margin-right: auto;
  
 }
+.button.disabled {
+  opacity: 0.5; 
+  cursor: not-allowed;
+}
+
 /* Removes the clear button from date inputs */
 input[type="date"]::-webkit-clear-button {
   display: none;

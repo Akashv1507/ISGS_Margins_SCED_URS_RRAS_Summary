@@ -20,7 +20,10 @@ window.onload = async () => {
 const refreshData = async () =>{
      //to display error msg
      const errorDiv = document.getElementById("errorDiv") as HTMLDivElement;
-     
+     const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+     // making submit button disabled till api call fetches data
+    //  submitBtn.disabled = true 
+     submitBtn.classList.add("button", "disabled")
      //get user inputs
      let targetDateValue = (
          document.getElementById("targetDate") as HTMLInputElement
@@ -30,6 +33,8 @@ const refreshData = async () =>{
      if (targetDateValue === "" ) {
          errorDiv.classList.add("mt-4", "mb-4", "alert", "alert-danger")
          errorDiv.innerHTML = "<b> Please Enter a Valid Date</b>";
+        //  submitBtn.disabled = false 
+         submitBtn.classList.remove("button", "disabled");
      } else {
          //if reached this ,means no validation error ,emptying error div and making start date and end date in desired format
          errorDiv.classList.remove("mt-4", "mb-4", "alert", "alert-danger")
@@ -54,11 +59,6 @@ const refreshData = async () =>{
                         data: isgsMarginData[prop],
                         type: "scatter",
                         hoverYaxisDisplay: "MW",
-                        // line: {
-                        //     width: 4,
-                        //     color: "#34A853"
-                        // },
-                        // fill: "tozeroy",
                         stackgroup: 'one'
                     };
                     isgsMarginPlotData.traces.push(singleGenMarginTrace);
@@ -67,11 +67,15 @@ const refreshData = async () =>{
                  setPlotTraces(
                      `plotDiv`,
                      isgsMarginPlotData
-                 );              
+                 );  
+                //  submitBtn.disabled = false   
+                 submitBtn.classList.remove("button", "disabled");          
          }
          catch (err) {
             errorDiv.classList.add("mt-4", "mb-4", "alert", "alert-danger")
-            errorDiv.innerHTML = "<b>Oops !!! Data Fetch Unsuccessful For Selected Date. Please Try Again</b>"          
+            errorDiv.innerHTML = "<b>Oops !!! Data Fetch Unsuccessful For Selected Date. Please Try Again</b>"    
+            // submitBtn.disabled = false   
+            submitBtn.classList.remove("button", "disabled");    
          }
      }
  };

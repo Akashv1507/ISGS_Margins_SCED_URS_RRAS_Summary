@@ -8,7 +8,7 @@
     
     {# <script src="https://cdn.plot.ly/plotly-2.6.3.min.js"></script> #}
     
-    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/@fortawesome/fontawesome-free/css/all.css') }}" />
+    {# <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/@fortawesome/fontawesome-free/css/all.css') }}" /> #}
     <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/bootstrap/dist/css/bootstrap.min.css') }}" />
     {% block css %}
     {#custom user css file#}
@@ -49,7 +49,6 @@
         </div>
     </div>
     <script type="text/javascript" src="{{ url_for('static', filename='node_modules/plotly.js-dist/plotly.js') }}"></script>
-    <script src="{{ url_for('static', filename='node_modules/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     
     
