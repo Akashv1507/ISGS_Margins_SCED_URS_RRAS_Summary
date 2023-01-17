@@ -11,14 +11,18 @@
             <label for="targetDate"> Date</label>
             <input type="date" name="targetDate" id="targetDate" />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label for="periodicity">Page Refresh Periodicity</label>
             <input type="number" name="periodicity" id="periodicity" min="5" value="5" />
         </div>       
-        <div class="col-md-2">
-            <button type="button" class="btn btn-primary" id="submitBtn">
+        <div class="col-md-1">
+            <button type="button" class="btn btn-primary btn-lg" id="submitBtn">
                 Submit
             </button>
+        </div>
+        <div class="col-md-2">
+            <a href="{{url_for('index')}}" class="btn btn-success btn-lg">Back To Home</a>
+        </div>
     </div>
     <div id="errorDiv"></div>
     <div id="plotDiv"></div>

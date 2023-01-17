@@ -1,5 +1,4 @@
 call nssm.exe install wrldc_isgsMargin_Urs "%cd%\server.exe"
-rem call nssm.exe edit mis_psp_scada
 call nssm.exe set wrldc_isgsMargin_Urs AppStdout "%cd%\logs\wrldc_isgsMargin_Urs.log"
 call nssm.exe set wrldc_isgsMargin_Urs AppStderr "%cd%\logs\wrldc_isgsMargin_Urs.log"
 call nssm set wrldc_isgsMargin_Urs AppRotateFiles 1

@@ -6,6 +6,7 @@ from Src.appConfig import getAppConfig
 from Src.controllers.marginApiController import isgsMarginApiController
 from Src.controllers.scedApiController import isgsScedApiController
 from Src.controllers.rrasApiController import isgsRrasApiController
+from Src.controllers.ursSummaryApiController import ursSumaaryApiController
 warnings.filterwarnings("ignore")
 
 app = Flask(__name__)
@@ -18,6 +19,7 @@ app.config['SECRET_KEY'] = appConfig['flaskSecret']
 app.register_blueprint(isgsMarginApiController)
 app.register_blueprint(isgsScedApiController)
 app.register_blueprint(isgsRrasApiController)
+app.register_blueprint(ursSumaaryApiController)
 
 @app.route('/')
 def index():
@@ -34,6 +36,10 @@ def isgsScedIndex():
 @app.route('/isgsRras')
 def isgsRrasIndex():
     return render_template('IsgsRras.html.j2')
+
+@app.route('/isgsUrs')
+def isgsUrsIndex():
+    return render_template('IsgsUrs.html.j2')
 
 
     

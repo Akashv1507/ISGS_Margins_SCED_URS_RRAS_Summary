@@ -16,9 +16,9 @@ def isgsRrasIndex(targetDate:str):
     isgsGenList= appconfig['isgsGenList']
     genRespObj = {}
     for isgsGen in isgsGenList: 
-        RrasApiUrl = f'https://wbes.wrldc.in/WebAccess/GetFilteredSchdData?USER={apiUsername}&PASS={apiPass}&DATE={targetDateStr}&ACR={isgsGen}'
+        rrasApiUrl = f'https://wbes.wrldc.in/WebAccess/GetFilteredSchdData?USER={apiUsername}&PASS={apiPass}&DATE={targetDateStr}&ACR={isgsGen}'
         try:
-            resp = requests.get(RrasApiUrl)
+            resp = requests.get(rrasApiUrl)
             if not resp.status_code == 200:
                 print(resp.status_code)
                 print("unable to get data from wbes api")
