@@ -8,3 +8,13 @@ export interface apiRespObj {
     [isgsGenName: string]: isgsValObj[];
   }
  
+export interface ursRespObj{
+  gen:string;
+  beneficiary:string;
+  blockRange:string
+  quantum:string
+}
+
+export interface ursRespObjList{
+  ursSummary:ursRespObj[];
+}

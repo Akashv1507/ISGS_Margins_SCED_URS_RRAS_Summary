@@ -1,4 +1,4 @@
-import {apiRespObj} from "./respInterfaceObj"
+import {apiRespObj,ursRespObjList} from "./respInterfaceObj"
 
 
 export const getIsgsMarginsData = async (
@@ -36,6 +36,23 @@ export const getIsgsRrasData = async (
 ): Promise< apiRespObj| null> => {
   try {
     const resp = await fetch(`/api/getIsgsRras/${targetDate}`, {
+      method: "get",
+    });
+    const respJSON = await resp.json();
+    return respJSON;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};
+
+export const getUrsData = async (
+  targetDate: string, 
+  startBlk:number,
+  endBlk:number
+): Promise< ursRespObjList| null> => {
+  try {
+    const resp = await fetch(`/api/getUrsSummary/${targetDate}/${startBlk}/${endBlk}`, {
       method: "get",
     });
     const respJSON = await resp.json();

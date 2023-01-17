@@ -14,7 +14,7 @@ window.onload = async () => {
     const periodicity = +(document.getElementById('periodicity') as HTMLInputElement).value
     intervalID = setInterval(refreshData , periodicity*60*1000);
     (document.getElementById('submitBtn') as HTMLButtonElement ).onclick = refreshData;
-    // refreshData()
+    refreshData()
 }
 
 const refreshData = async () =>{
@@ -22,9 +22,12 @@ const refreshData = async () =>{
      const errorDiv = document.getElementById("errorDiv") as HTMLDivElement;
      const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
      // making submit button disabled till api call fetches data
-    //  submitBtn.disabled = true 
      submitBtn.classList.add("button", "disabled")
-     //get user inputs
+     
+    const today = ( d => new Date(d.setDate(d.getDate())) )(new Date).toISOString().slice(0,10);
+    //setting targetdate to today
+    (document.getElementById("targetDate") as HTMLInputElement).value= today;
+    //get user inputs
      let targetDateValue = (
          document.getElementById("targetDate") as HTMLInputElement
      ).value;
@@ -33,7 +36,6 @@ const refreshData = async () =>{
      if (targetDateValue === "" ) {
          errorDiv.classList.add("mt-4", "mb-4", "alert", "alert-danger")
          errorDiv.innerHTML = "<b> Please Enter a Valid Date</b>";
-        //  submitBtn.disabled = false 
          submitBtn.classList.remove("button", "disabled");
      } else {
          //if reached this ,means no validation error ,emptying error div and making start date and end date in desired format
@@ -68,13 +70,11 @@ const refreshData = async () =>{
                      `plotDiv`,
                      isgsMarginPlotData
                  );  
-                //  submitBtn.disabled = false   
                  submitBtn.classList.remove("button", "disabled");          
          }
          catch (err) {
             errorDiv.classList.add("mt-4", "mb-4", "alert", "alert-danger")
-            errorDiv.innerHTML = "<b>Oops !!! Data Fetch Unsuccessful For Selected Date. Please Try Again</b>"    
-            // submitBtn.disabled = false   
+            errorDiv.innerHTML = "<b>Oops !!! Data Fetch Unsuccessful For Selected Date. Please Try Again</b>"     
             submitBtn.classList.remove("button", "disabled");    
          }
      }
