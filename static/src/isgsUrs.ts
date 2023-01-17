@@ -77,14 +77,7 @@ const refreshData = async () =>{
                 dom: "Brtp",
                 data: ursData.ursSummary,
                 columns: columns,
-                order: [[3, 'desc']],
-                autoWidth:false,
-                columnDefs: [
-                    { "width": "10%", "targets": 0 },
-                    { "width": "10%", "targets": 1 },
-                    { "width": "10%", "targets": 2 },
-                    { "width": "10%", "targets": 3 }
-                  ]
+                order: [[3, 'desc']]
             })
             submitBtn.classList.remove("button", "disabled");
             ursSummaryInfoDiv.innerHTML= "<b>URS SUMMARY </b>"
