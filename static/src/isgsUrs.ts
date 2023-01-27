@@ -1,14 +1,11 @@
-import {getEndBlockNo, getStartBlockNo} from './timeUtils'
+import {getEndBlockNo, getStartBlockNo, getCurrentTime} from './timeUtils'
 import {getUrsData} from './fetchApiData'
 import { ursRespObjList } from './respInterfaceObj';
 
 
 
 window.onload = async () => {
-    const currentTime = new Date();
-    const currentOffset = currentTime.getTimezoneOffset();
-    const ISTOffset = 330;   // IST offset UTC +5:30 
-    const todayISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+    const todayISTTime= getCurrentTime()
     const tommorowIstTime = new Date(todayISTTime.getTime() + 60 * 60 * 24 * 1000);
     let todayDateStr = todayISTTime.toISOString().substring(0,10);
     let tommorowDateStr = tommorowIstTime.toISOString().substring(0,10);
@@ -38,6 +35,10 @@ const refreshData = async () =>{
      //to display error msg
      const errorDiv = document.getElementById("errorDiv") as HTMLDivElement;
      const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+     let tblDiv = document.getElementById("tblDiv") as HTMLDivElement 
+     tblDiv.innerHTML=""
+     errorDiv.innerHTML=""
+     errorDiv.classList.remove("mt-4", "mb-4", "alert", "alert-danger")
      // making submit button disabled till api call fetches data
      submitBtn.classList.add("button", "disabled")
      //get user inputs
@@ -53,15 +54,22 @@ const refreshData = async () =>{
     //validation checks, and displaying msg in error div
      if (fromTimeValue === "" ||toTimeValue === "") {
          errorDiv.classList.add("mt-4", "mb-4", "alert", "alert-danger")
-         errorDiv.innerHTML = "<b> Please Enter a valid Time</b>";
+         errorDiv.innerHTML = "<b> Please Enter a valid Time values.</b>";
          submitBtn.classList.remove("button", "disabled");        
-     } else {
+     }else if(fromTimeValue.substring(0,10)!=toTimeValue.substring(0,10)){
+        errorDiv.classList.add("mt-4", "mb-4", "alert", "alert-danger")
+        errorDiv.innerHTML = "<b> From-Time and To-Time Values Should be From Same Date.</b>";
+        submitBtn.classList.remove("button", "disabled");  
+     }else if (fromTimeValue > toTimeValue) {
+        errorDiv.classList.add("mt-4", "mb-4", "alert", "alert-danger");
+        errorDiv.innerHTML =
+          "<b>From-Time should be less than To-Time  </b>";
+      } 
+      else {
         try{
             let ursData:ursRespObjList  = await getUrsData(
                 targetDate, startBlkNo, endBlkNo
             );  
-            let tblDiv = document.getElementById("tblDiv") as HTMLDivElement 
-            tblDiv.innerHTML=""
             let ursSummaryInfoDiv = document.createElement('div');
             ursSummaryInfoDiv.id = `ursSummaryInfo`;
             tblDiv.appendChild(ursSummaryInfoDiv);
@@ -80,7 +88,7 @@ const refreshData = async () =>{
                 order: [[3, 'desc']]
             })
             submitBtn.classList.remove("button", "disabled");
-            ursSummaryInfoDiv.innerHTML= "<b>URS SUMMARY </b>"
+            ursSummaryInfoDiv.innerHTML= `<b>URS SUMMARY FOR ${targetDate} </b>`
             ursSummaryInfoDiv.classList.add("centre")
         }
         catch (err) {

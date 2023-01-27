@@ -57,6 +57,7 @@ export const setPlotTraces = (divId: string, plotData: PlotData) => {
         size: 15,
       },
     },
+    hovermode:'x',
     autosize: false,
     width: 1500,
     height: 750,

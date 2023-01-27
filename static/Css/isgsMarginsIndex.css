@@ -59,6 +59,24 @@ input[type="number"] {
 
 
 input[type="number"], focus {
-  color: #141515;
+  color: #141514;
 }
 
+.table_class{
+  width: 60%;
+  margin: auto;
+}
+
+table, th, td {
+  border: 2px solid rgb(241, 77, 12);
+  color: #121313;
+}
+thead th {
+  padding: 10px;
+ font-weight:bolder;
+}
+
+tr td {
+  padding: 10px;
+ font-weight:normal;
+}

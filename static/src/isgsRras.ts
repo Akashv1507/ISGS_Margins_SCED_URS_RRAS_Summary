@@ -1,6 +1,7 @@
 import {PlotData, PlotTrace, setPlotTraces } from './plotUtils'
 import {getIsgsRrasData} from './fetchApiData'
 import {apiRespObj,isgsValObj}  from './respInterfaceObj'
+import { getLastUpdatedTimeStr} from './timeUtils'
 
 
 
@@ -13,23 +14,36 @@ window.onload = async () => {
     
     const periodicity = +(document.getElementById('periodicity') as HTMLInputElement).value
     intervalID = setInterval(refreshData , periodicity*60*1000);
-    (document.getElementById('submitBtn') as HTMLButtonElement ).onclick = refreshData;
+    (document.getElementById('submitBtn') as HTMLButtonElement ).onclick = fetchData;
     refreshData()
+}
+//  fetch data and plot on button click
+const fetchData = async()=>{
+    let targetDateValue = (
+        document.getElementById("targetDate") as HTMLInputElement
+    ).value;
+    plotData(targetDateValue)
 }
 
 const refreshData = async () =>{
+    const today = ( d => new Date(d.setDate(d.getDate())) )(new Date).toISOString().slice(0,10);
+    //setting targetdate to today
+    (document.getElementById("targetDate") as HTMLInputElement).value= today;
+    //get user inputs
+    let targetDateValue = (
+        document.getElementById("targetDate") as HTMLInputElement
+    ).value;
+    plotData(targetDateValue)
+ };
+ const plotData = async (targetDateValue:string)=>{
      //to display error msg
      const errorDiv = document.getElementById("errorDiv") as HTMLDivElement;
      const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
-     // making submit button disabled till api call fetches data
-     submitBtn.classList.add("button", "disabled")
-     const today = ( d => new Date(d.setDate(d.getDate())) )(new Date).toISOString().slice(0,10);
-    //setting targetdate to today
-    (document.getElementById("targetDate") as HTMLInputElement).value= today;
-     //get user inputs
-     let targetDateValue = (
-         document.getElementById("targetDate") as HTMLInputElement
-     ).value;
+     const lastUpdatedDiv = document.getElementById('lastUpdatedDiv') as HTMLButtonElement;
+    // making submit button disabled till api call fetches data
+    submitBtn.classList.add("button", "disabled")
+    const lastUpdatedStr = getLastUpdatedTimeStr()
+    lastUpdatedDiv.innerHTML = `Last Updated On ${lastUpdatedStr}`
  
      //validation checks, and displaying msg in error div
      if (targetDateValue === "" ) {
@@ -50,7 +64,7 @@ const refreshData = async () =>{
                  }
 
                  let isgsRrasPlotData: PlotData = {
-                     title: `ISGS RRAS`,
+                     title: `ISGS RRAS ${targetDateValue.substring(0,10)}`,
                      traces: [],
                      yAxisTitle: "--MW--",
                      barmode: "relative"

@@ -18,3 +18,17 @@ export interface ursRespObj{
 export interface ursRespObjList{
   ursSummary:ursRespObj[];
 }
+
+export interface plotDataPoints{
+  x: number[];
+  y: number[];
+  type: string;
+  name: string;
+  hovertemplate: string;
+}
+
+export interface maxMargins{
+  'traceName':string;
+  'val':number;
+  'pointInd':number;
+}
