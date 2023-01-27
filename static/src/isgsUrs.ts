@@ -64,6 +64,7 @@ const refreshData = async () =>{
         errorDiv.classList.add("mt-4", "mb-4", "alert", "alert-danger");
         errorDiv.innerHTML =
           "<b>From-Time should be less than To-Time  </b>";
+        submitBtn.classList.remove("button", "disabled");
       } 
       else {
         try{
