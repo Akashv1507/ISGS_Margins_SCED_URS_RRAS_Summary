@@ -37,10 +37,10 @@ input[type="date"] {
  
 }
 
-
 input[type="date"], focus {
-  color: #141515;
+  color: hsl(180, 2%, 8%);
 }
+
 input[type="number"] {
   appearance: none;
   -webkit-appearance: none;
@@ -56,8 +56,6 @@ input[type="number"] {
   box-shadow: 6px 4px 8px;
  
 }
-
-
 input[type="number"], focus {
   color: #141514;
 }

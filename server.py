@@ -7,6 +7,7 @@ from Src.controllers.marginApiController import isgsMarginApiController
 from Src.controllers.scedApiController import isgsScedApiController
 from Src.controllers.rrasApiController import isgsRrasApiController
 from Src.controllers.ursSummaryApiController import ursSumaaryApiController
+from Src.controllers.schVsEntApiController import schVsEntApiController
 warnings.filterwarnings("ignore")
 
 app = Flask(__name__)
@@ -20,6 +21,8 @@ app.register_blueprint(isgsMarginApiController)
 app.register_blueprint(isgsScedApiController)
 app.register_blueprint(isgsRrasApiController)
 app.register_blueprint(ursSumaaryApiController)
+app.register_blueprint(schVsEntApiController)
+
 
 @app.route('/')
 def index():
@@ -40,6 +43,10 @@ def isgsRrasIndex():
 @app.route('/isgsUrs')
 def isgsUrsIndex():
     return render_template('IsgsUrs.html.j2')
+
+@app.route('/entitlementVsSch')
+def entitlementVsSchIndex():
+    return render_template('entitlementVsSchedule.html.j2')
 
 
     

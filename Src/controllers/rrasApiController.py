@@ -25,7 +25,7 @@ def isgsRrasIndex(targetDate:str):
                 genRespObj[isgsGen]=[]
                 continue
             respJson = resp.json()
-            isgsGenRrasData = respJson["groupWiseDataList"][0]["netScheduleSummary"]["RRAS"].split(',')
+            isgsGenRrasData = respJson["groupWiseDataList"][0]["netScheduleSummary"]["AS_SHORTFALL"].split(',')
             
             if (len(isgsGenRrasData)== 0) :
                 genRespObj[isgsGen]=[]
