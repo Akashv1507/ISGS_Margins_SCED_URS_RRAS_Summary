@@ -13,7 +13,9 @@ export interface PlotTrace {
     fill?: string;
     mode?: string;
     stackgroup?: string
+    offsetgroup?:string
     width?:number
+    marker?:{color?:string}
 
 }
 
@@ -59,8 +61,8 @@ export const setPlotTraces = (divId: string, plotData: PlotData) => {
     },
     hovermode:'x',
     autosize: false,
-    width: 1500,
-    height: 750,
+    width: 1700,
+    height: 700,
     xaxis: {
       title:'--Time Block--',
       showgrid: false,
@@ -103,10 +105,13 @@ export const setPlotTraces = (divId: string, plotData: PlotData) => {
       y: xyData.vals,
       type: trace.type,
       name: trace.name,
-      hovertemplate: `(%{x}, %{y:.0f} ${trace.hoverYaxisDisplay})`,
+      hovertemplate: `(--%{y:.0f}-- ${trace.hoverYaxisDisplay})`,
     };
     if (trace.line != null) {
       traceObj["line"] = trace.line;
+    }
+    if (trace.marker != null) {
+      traceObj["marker"] = trace.marker;
     }
     if (trace.visible != null) {
       traceObj["visible"] = trace.visible;
@@ -120,6 +125,9 @@ export const setPlotTraces = (divId: string, plotData: PlotData) => {
     if (trace.stackgroup != null) {
         traceObj["stackgroup"] = trace.stackgroup;
     }
+    if (trace.offsetgroup != null) {
+      traceObj["offsetgroup"] = trace.stackgroup;
+  }
     if (trace.width != null) {
       traceObj["width"] = trace.width;
     }

@@ -1,3 +1,12 @@
+#plotSection{
+  margin-left: 100px;
+  margin-top: 10px;
+}
+#stackedBarSection{
+  margin-left: 50px;
+  margin-top: 10px;
+}
+
 .box {
   
     appearance: none;

@@ -1,5 +1,6 @@
 import {fetchTblData} from "./fetchTblData"
 import {fetchPlotData} from "./fetchPlotData"
+import {fetchStackedBarPlotData} from "./fetchStackedBarPlotData"
 
 
 
@@ -64,5 +65,6 @@ const wrapperFunc = async ()=>{
 
       await fetchTblData()
       await fetchPlotData()
+      //await fetchStackedBarPlotData()
 
     }

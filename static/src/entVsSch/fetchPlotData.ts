@@ -26,8 +26,8 @@ export const fetchPlotData = async() => {
           document.getElementById("genType") as HTMLSelectElement
         ).value;
 
-    const schVsOnBarEntTraceList =[{'id':'ScheduleAmount_Sum', 'name':'Schedule'},{'id':'EntOnBar_Sum', 'name':'On-Bar Entitlement'}] 
-    const offBarEntVsOffBarReqTraceList =[{'id':'EntOffBar_Sum', 'name':'Off-Bar Entitlement'},{'id':'ReqOffBar_Sum', 'name':'Off-Bar Requisition'}] 
+    const schVsOnBarEntTraceList =[{'id':'ScheduleAmount_Sum', 'name':'Schedule_Sum', 'color':'red'},{'id':'EntOnBar_Sum', 'name':'OnBarEntitlement_Sum', 'color':'green'}] 
+    const offBarEntVsOffBarReqTraceList =[{'id':'EntOffBar_Sum', 'name':'OffBarEntitlement_Sum', 'color':'red'},{'id':'ReqOffBar_Sum', 'name':'OffBarRequisition_Sum', 'color':'green'}] 
 
     //submit btn
     const submitBtn = document.getElementById("submitBtn") as HTMLButtonElement
@@ -73,21 +73,59 @@ export const fetchPlotData = async() => {
             yAxisTitle: "--MW--",
            
         };
+        const allGenEntOnBarData = schVsEntData['EntOnBar']
+        const allGenSdlData = schVsEntData['ScheduleAmount']
+        const allGenEntOffBarData = schVsEntData['EntOffBar']
+        const allGenReqOffBarData = schVsEntData['ReqOffBar']
+
+        // it contains all gen of particular state selected from frontend
+        let genList:string[] = [];
+        for(const gen in allGenSdlData) 
+            {genList.push(gen);}
+        
+        
+        //iterating through all gen and plotting sdl and onbar ent data of all genearators
+        genList.forEach((genName, index) => {
+            const sdlGenData = allGenSdlData[genName]
+            const entOnBarGenData = allGenEntOnBarData[genName]
+            const sdlPlotData=getPlotData(sdlGenData)
+            const entOnbarlPlotData=getPlotData(entOnBarGenData)
+            let sdlTrace: PlotTrace = {
+                name: `${genName}_Sdl`,
+                data: sdlPlotData,
+                type: "scatter",
+                hoverYaxisDisplay: "MW",
+                visible:"legendonly",
+                line: { width: 4 }
+            };
+            let entOnbarTrace: PlotTrace = {
+                name: `${genName}_EntOnbar`,
+                data: entOnbarlPlotData,
+                type: "scatter",
+                hoverYaxisDisplay: "MW",
+                visible:"legendonly",
+                line: { width: 4 }
+            };
+        
+            schVsOnBarEntPlotData.traces.push(sdlTrace);
+            schVsOnBarEntPlotData.traces.push(entOnbarTrace);
+        });
+        //plotting total sdl and on bar entitlement data 
         for (let i=0; i<schVsOnBarEntTraceList.length;i++) {
             const entityId = schVsOnBarEntTraceList[i]['id']
             const entityName = schVsOnBarEntTraceList[i]['name']
             const entityPlotData=getPlotData(schVsEntData[entityId])
-           let singleTrace: PlotTrace = {
+            let singleTrace: PlotTrace = {
                name: `${entityName}`,
                data: entityPlotData,
                type: "scatter",
                hoverYaxisDisplay: "MW",
                //fill: 'tonexty',
-               line: { width: 6 }
+               line: { width: 4, color: schVsOnBarEntTraceList[i]['color']}
            };
            schVsOnBarEntPlotData.traces.push(singleTrace);
          } 
-
+        
          //Off bar entitlement vs Off bar requisition plotdata
         let offBarEntVsOffBarReqPlotData: PlotData = {
             title: ` ${stateAcr} Off-Bar Entitlement Vs Off-Bar Requisition ${targetDateValue.substring(0,10)}`,
@@ -95,6 +133,34 @@ export const fetchPlotData = async() => {
             yAxisTitle: "--MW--",
            
         };
+
+        //iterating through all gen and plotting sdl and onbar ent data of all genearators
+        genList.forEach((genName, index) => {
+            const genEntoffbarData = allGenEntOffBarData[genName]
+            const genReqOffbarGenData = allGenReqOffBarData[genName]
+            const reqOffbarPlotData=getPlotData(genReqOffbarGenData)
+            const entOffbarlPlotData=getPlotData(genEntoffbarData)
+            let entOffbarTrace: PlotTrace = {
+                name: `${genName}_EntOffBar`,
+                data: entOffbarlPlotData,
+                type: "scatter",
+                hoverYaxisDisplay: "MW",
+                visible:"legendonly",
+                line: { width: 4 }
+            };
+            let reqOffbarTrace: PlotTrace = {
+                name: `${genName}_ReqOffbar`,
+                data: reqOffbarPlotData,
+                type: "scatter",
+                hoverYaxisDisplay: "MW",
+                visible:"legendonly",
+                line: { width: 4 }
+            };
+
+            offBarEntVsOffBarReqPlotData.traces.push(entOffbarTrace);
+            offBarEntVsOffBarReqPlotData.traces.push(reqOffbarTrace);
+        });
+        //plotting total offbar requisition and off bar entitlement data 
         for (let i=0; i<offBarEntVsOffBarReqTraceList.length;i++) {
             const entityId = offBarEntVsOffBarReqTraceList[i]['id']
             const entityName = offBarEntVsOffBarReqTraceList[i]['name']
@@ -104,12 +170,11 @@ export const fetchPlotData = async() => {
                data: entityPlotData,
                type: "scatter",
                hoverYaxisDisplay: "MW",
-               line: { width: 6 }
+               line: { width: 4 , color:offBarEntVsOffBarReqTraceList[i]['color']}
                //fill: 'tonexty',
            };
            offBarEntVsOffBarReqPlotData.traces.push(singleTrace);
          } 
-
 
         //setting plot traces
         setPlotTraces(
