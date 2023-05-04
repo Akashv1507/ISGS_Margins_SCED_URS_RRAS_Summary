@@ -78,14 +78,32 @@ export const fetchPlotData = async() => {
         const allGenEntOffBarData = schVsEntData['EntOffBar']
         const allGenReqOffBarData = schVsEntData['ReqOffBar']
 
-        // it contains all gen of particular state selected from frontend
-        let genList:string[] = [];
-        for(const gen in allGenSdlData) 
-            {genList.push(gen);}
+        // it contains all gen of particular state selected  for sch vs ent plot 
+        let sdlEntOnbargenList:string[] = [];
+        // it contains all gen of particular state selected  for ent offbar vs req Offbar plot
+        let reqEntOffBarGenList:string[] = []
+
+        // filtering generators that contains all zero in every TB                                                                                      
+        for(const gen in allGenEntOnBarData) 
+            {
+                const genEntDataList:number[]= allGenEntOnBarData[gen]
+                const sumEntOnBar = genEntDataList.reduce((a, b) => a + b)
+                if (sumEntOnBar>0){
+                    sdlEntOnbargenList.push(gen);}
+            }
+
+        // filtering generators that contains all zero in every TB                                                                                      
+        for(const gen in allGenEntOffBarData) 
+            {
+                const genEntOffbarDataList:number[]= allGenEntOffBarData[gen]
+                const sumEntOffBar = genEntOffbarDataList.reduce((a, b) => a + b)
+                if (sumEntOffBar>0){
+                    reqEntOffBarGenList.push(gen);}
+            }
         
         
         //iterating through all gen and plotting sdl and onbar ent data of all genearators
-        genList.forEach((genName, index) => {
+        sdlEntOnbargenList.forEach((genName, index) => {
             const sdlGenData = allGenSdlData[genName]
             const entOnBarGenData = allGenEntOnBarData[genName]
             const sdlPlotData=getPlotData(sdlGenData)
@@ -134,8 +152,8 @@ export const fetchPlotData = async() => {
            
         };
 
-        //iterating through all gen and plotting sdl and onbar ent data of all genearators
-        genList.forEach((genName, index) => {
+        //iterating through all gen and plotting offbar ent vs offbar req data 
+        reqEntOffBarGenList.forEach((genName, index) => {
             const genEntoffbarData = allGenEntOffBarData[genName]
             const genReqOffbarGenData = allGenReqOffBarData[genName]
             const reqOffbarPlotData=getPlotData(genReqOffbarGenData)

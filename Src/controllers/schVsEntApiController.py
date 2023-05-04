@@ -48,11 +48,11 @@ def schVsEntIndex(targetDate:str, stateAcr:str, genType:str):
 def getRespObj(listData:List, fuelGenList:List, paramAcr:str = ''):
 
     allGenAccumulator = {}
-    
+    validBuyerAcrList = ['MSEB_Beneficiary', 'GEB_Beneficiary', 'MPSEB_Beneficiary', 'CSEB_Beneficiary']
     # filtering Null, None or non truthy values
     listData = list(filter(None, listData))
     # filtering data by fuel type
-    filteredData = list(filter(lambda gen: gen['SellerAcr'] in fuelGenList, listData))  
+    filteredData = list(filter(lambda gen: (gen['SellerAcr'] in fuelGenList) and (gen['BuyerAcr'] in validBuyerAcrList), listData))  
     
     for genData in filteredData:
         sellerAcr = genData['SellerAcr']
