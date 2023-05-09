@@ -44,6 +44,8 @@ export interface schVsEntRespObj{
   'ReqOffBar_Sum': number[];
   'ReqOnBar_Sum': number[];
   'ScheduleAmount_Sum': number[]
+  'Rev_No':number
+
 }
 
 export interface allGenData{
@@ -55,4 +57,6 @@ export interface schVsEntTblRow{
   'onBarEnt':number|string;
   'onBarReq':number|string;
   'sdlAmount':number|string;
+  'diffSdlEnt':number|string;
+  'diffSdlReq': number|string;
 }

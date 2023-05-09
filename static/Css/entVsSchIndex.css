@@ -139,3 +139,22 @@ input.dt-button {
   }
 }
 
+
+.blink {
+
+  color: rgb(145, 65, 65);
+  font-weight: bold;
+  font-size: large;
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}

@@ -10,6 +10,9 @@ export const fetchTblData = async()=> {
   
     //to display table
     const tableWrapper = document.getElementById("tableWrapper") as HTMLDivElement;
+
+     //get Rev no div 
+     const revNoDiv = document.getElementById("revNoDiv") as HTMLDivElement;
   
     //get user inputs
     const targetDateValue = (
@@ -18,7 +21,6 @@ export const fetchTblData = async()=> {
     const stateAcr = (
         document.getElementById("state") as HTMLSelectElement
     ).value;
-  
     const fuelType = (
           document.getElementById("genType") as HTMLSelectElement
         ).value;
@@ -50,6 +52,11 @@ export const fetchTblData = async()=> {
         let schVsEntData  = await getSchVsEntData(
             targetDateValue, stateAcr, fuelType
         ); 
+
+        const revNo = schVsEntData['Rev_No']
+        revNoDiv.innerHTML = `Current Rev No : ${revNo}`
+        revNoDiv.classList.add("blink");
+        
         
         //div to store tbl info
         let tblInfoDiv = document.createElement('div');
@@ -64,7 +71,7 @@ export const fetchTblData = async()=> {
         const schVsEntTblRows = getTblRows(schVsEntData)
         
         //generating column name
-        const columns = [{title:'Block_No', data:'blkNo'}, {title:'Entitlement_OnBar', data:'onBarEnt'},{title:'Requistion_OnBar', data:'onBarReq'}, {title:'Schedule', data:'sdlAmount'}]
+        const columns = [{title:'Block_No', data:'blkNo'}, {title:'Entitlement_OnBar', data:'onBarEnt'},{title:'Requistion_OnBar', data:'onBarReq'}, {title:'Schedule', data:'sdlAmount'}, {title:'Schedule-Entitlement', data:'diffSdlEnt'}, {title:'Schedule-Requisition', data:'diffSdlReq'}]
         $("#schVsEntTbl").DataTable({
             dom: "Bfrtip",
             lengthMenu: [96, 192, 188],
@@ -74,7 +81,7 @@ export const fetchTblData = async()=> {
         }as DataTables.Settings)
         submitBtn.classList.remove("button", "disabled");
         spinnerDiv.classList.remove("loader");
-        tblInfoDiv.innerHTML= `<b>Showing Data of ${stateAcr} ${targetDateValue} </b>`
+        tblInfoDiv.innerHTML= `${stateAcr} | ${targetDateValue}</b>`
         //tblInfoDiv.classList.add("divCentre")
 
     }

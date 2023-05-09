@@ -30,6 +30,7 @@ def schVsEntIndex(targetDate:str, stateAcr:str, genType:str):
             print(resp.status_code)
             print("unable to get data from wbes api")    
         respJson = resp.json()
+        revNo = respJson["fullschdRevisionNo"]
         requistionDcData = respJson["groupWiseDataList"][0]["entReqList"]
         fullschdData = respJson["groupWiseDataList"][0]["fullschdList"]
         entOnBarData = getRespObj(requistionDcData, fuelGenList, 'EntOnBar')
@@ -37,10 +38,10 @@ def schVsEntIndex(targetDate:str, stateAcr:str, genType:str):
         reqOffBarData = getRespObj(requistionDcData, fuelGenList, 'ReqOffBar')  
         reqOnBarData = getRespObj(requistionDcData, fuelGenList, 'ReqOnBar')
         scheduleAmountData = getRespObj(fullschdData, fuelGenList, 'ScheduleAmount')
-        genRespObj = {**entOnBarData, **entOffBarData, **reqOffBarData, **reqOnBarData, **scheduleAmountData}     
+        genRespObj = {**entOnBarData, **entOffBarData, **reqOffBarData, **reqOnBarData, **scheduleAmountData, 'Rev_No':int(revNo)}     
     except Exception as err:
         print(f'Error while making API call is {err}')
-        genRespObj = {'EntOffBar': {}, 'EntOnBar': {}, 'ReqOffBar':{},'ReqOnBar':{}, 'ScheduleAmount':{}, 'EntOffBar_Sum': [], 'EntOnBar_Sum': [], 'ReqOffBar_Sum': [], 'ReqOnBar_Sum': [], 'ScheduleAmount_Sum': []}
+        genRespObj = {'EntOffBar': {}, 'EntOnBar': {}, 'ReqOffBar':{},'ReqOnBar':{}, 'ScheduleAmount':{}, 'EntOffBar_Sum': [], 'EntOnBar_Sum': [], 'ReqOffBar_Sum': [], 'ReqOnBar_Sum': [], 'ScheduleAmount_Sum': [], 'Rev_No':revNo}
         return jsonify(genRespObj)
         
     return jsonify(genRespObj)
@@ -51,8 +52,11 @@ def getRespObj(listData:List, fuelGenList:List, paramAcr:str = ''):
     validBuyerAcrList = ['MSEB_Beneficiary', 'GEB_Beneficiary', 'MPSEB_Beneficiary', 'CSEB_Beneficiary']
     # filtering Null, None or non truthy values
     listData = list(filter(None, listData))
-    # filtering data by fuel type
-    filteredData = list(filter(lambda gen: (gen['SellerAcr'] in fuelGenList) and (gen['BuyerAcr'] in validBuyerAcrList), listData))  
+    # filtering data by fuel type, seller-buyer acr and scheduletypeName(especially in case of schedule)
+    if paramAcr=="ScheduleAmount":
+        filteredData = list(filter(lambda gen: (gen['SellerAcr'] in fuelGenList) and (gen['BuyerAcr'] in validBuyerAcrList) and (gen['ScheduleTypeName'] =='ISGS'), listData)) 
+    else:
+        filteredData = list(filter(lambda gen: (gen['SellerAcr'] in fuelGenList) and (gen['BuyerAcr'] in validBuyerAcrList) , listData)) 
     
     for genData in filteredData:
         sellerAcr = genData['SellerAcr']
