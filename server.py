@@ -8,6 +8,7 @@ from Src.controllers.scedApiController import isgsScedApiController
 from Src.controllers.rrasApiController import isgsRrasApiController
 from Src.controllers.ursSummaryApiController import ursSumaaryApiController
 from Src.controllers.schVsEntApiController import schVsEntApiController
+from Src.controllers.schVsEntOtherRegionApiController import schVsEntOtherRegionApiController
 warnings.filterwarnings("ignore")
 
 app = Flask(__name__)
@@ -22,6 +23,7 @@ app.register_blueprint(isgsScedApiController)
 app.register_blueprint(isgsRrasApiController)
 app.register_blueprint(ursSumaaryApiController)
 app.register_blueprint(schVsEntApiController)
+app.register_blueprint(schVsEntOtherRegionApiController)
 
 
 @app.route('/')

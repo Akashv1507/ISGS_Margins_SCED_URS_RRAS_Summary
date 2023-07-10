@@ -44,7 +44,7 @@ export const setPlotTraces = (divId: string, plotData: PlotData) => {
     title: {
       text: plotData.title,
       font: {
-        size: 36,
+        size: 28,
       },
     },
     // plot_bgcolor:"black",

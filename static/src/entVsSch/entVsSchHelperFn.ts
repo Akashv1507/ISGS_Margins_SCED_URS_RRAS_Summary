@@ -41,3 +41,25 @@ export const getPlotData= (entityList:number[]):isgsValObj[]=>{
   }
   return entityPlotData
 }
+
+export const getStateNameFromAcr= (stateAcr:string):string=>{
+  let stateName = ""
+  
+  if (stateAcr ==="MSEB_State"){
+    stateName = "MH"
+   
+  }else if (stateAcr ==="GEB_State") {
+    stateName = "Guj"
+    
+  } else if (stateAcr ==="MP_State")  {
+    stateName = "MP"
+    
+  } else if (stateAcr ==="CSEB_State"){
+    stateName = "Chatt"
+
+  }
+
+  return stateName
+ 
+  
+}

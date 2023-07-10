@@ -26,6 +26,7 @@ window.onload = async () => {
   
     tblIconBtn.classList.add("tblActive")
     plotSectionDiv.hidden =true
+    stackedBarSectionDiv.hidden=true
   
     tblIconBtn.onclick = ()=>{
       tblIconBtn.classList.add("tblActive")

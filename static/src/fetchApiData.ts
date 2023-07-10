@@ -80,3 +80,20 @@ export const getSchVsEntData = async (
     return null;
   }
 };
+
+export const getOtherRegionSchVsEntData = async (
+  targetDate: string, 
+  stateAcr:string,
+  fuelType:string
+): Promise< schVsEntRespObj| null> => {
+  try {
+    const resp = await fetch(`/api/getSchVsEntOtherRegion/${targetDate}/${stateAcr}/${fuelType}`, {
+      method: "get",
+    });
+    const respJSON = await resp.json();
+    return respJSON;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};

@@ -44,7 +44,7 @@ export interface schVsEntRespObj{
   'ReqOffBar_Sum': number[];
   'ReqOnBar_Sum': number[];
   'ScheduleAmount_Sum': number[]
-  'Rev_No':number
+  'Rev_No'?:number
 
 }
 
