@@ -7,7 +7,8 @@ module.exports = {
     isgsSced: ["babel-polyfill", path.resolve(__dirname, "src/isgsSced.ts")],
     isgsRras: ["babel-polyfill", path.resolve(__dirname, "src/isgsRras.ts")],
     isgsUrs: ["babel-polyfill", path.resolve(__dirname, "src/isgsUrs.ts")],
-    entVsSch: ["babel-polyfill", path.resolve(__dirname, "src/entVsSch/entVsSchIndex.ts")]
+    entVsSch: ["babel-polyfill", path.resolve(__dirname, "src/entVsSch/entVsSchIndex.ts")],
+    rooftopSolar: ["babel-polyfill", path.resolve(__dirname, "src/rooftopSolar.ts")]
   },
 
   output: {

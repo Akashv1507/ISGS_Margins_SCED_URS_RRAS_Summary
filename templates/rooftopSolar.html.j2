@@ -1,0 +1,37 @@
+{% extends "layout.html.j2" %} 
+{% block title %}  ISGS Margins
+{% endblock %}
+
+{% block css %}  
+    <link href="{{ url_for('static', filename='Css/rooftopSolar.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %} 
+{% block content %}
+    <div class="row mt-5 justify-content-md-center">
+        <div class="col-md-3">
+            <label for="startDate">Start Date</label>
+            <input type="datetime-local" name="startDate" id="startDate" />
+        </div>
+        <div class="col-md-3">
+           <label for="endDate">End Date</label>
+            <input type="datetime-local" name="endDate" id="endDate" />
+        </div>       
+        <div class="col-md-1">
+            <button type="button" class="btn btn-primary btn-lg" id="submitBtn">
+                Submit
+            </button>
+        </div>
+        <div class="col-md-2">
+            <a href="{{url_for('index')}}" class="btn btn-success btn-lg">Back To Home</a>
+        </div>
+    </div>
+    <div id="errorDiv"></div>
+    <div id="plotDiv"></div>
+
+{% endblock %}
+{%block scripts%}
+    <script src="{{ url_for('static', filename='dist/rooftopSolar.js') }}"></script>
+{% endblock %}
+
+
+
+    

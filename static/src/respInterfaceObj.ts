@@ -60,3 +60,9 @@ export interface schVsEntTblRow{
   'diffSdlEnt':number|string;
   'diffSdlReq': number|string;
 }
+
+
+export interface rooftopSolarObj {
+  timestamp: string;
+  val: number;
+}

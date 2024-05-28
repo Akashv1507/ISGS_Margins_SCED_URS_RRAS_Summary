@@ -59,7 +59,8 @@ const plotData = async (targetDateValue:string)=>{
         try {
                 let isgsMarginData:apiRespObj  = await getIsgsMarginsData(
                     targetDateValue
-                );  
+                );
+                
                 if (isgsMarginData==null)   {
                    errorDiv.classList.add("mt-4", "mb-4", "alert", "alert-danger")
                    errorDiv.innerHTML = "<b>Oops !!! Data Fetch Unsuccessful For Selected Date. Please Try Again</b>" 
@@ -193,7 +194,8 @@ const plotData = async (targetDateValue:string)=>{
         catch (err) {
            errorDiv.classList.add("mt-4", "mb-4", "alert", "alert-danger")
            errorDiv.innerHTML = "<b>Oops !!! Data Fetch Unsuccessful For Selected Date. Please Try Again</b>"     
-           submitBtn.classList.remove("button", "disabled");    
+           submitBtn.classList.remove("button", "disabled"); 
+           console.log(err)   
         }
     }
 

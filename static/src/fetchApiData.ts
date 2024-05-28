@@ -1,4 +1,4 @@
-import {apiRespObj,ursRespObjList, schVsEntRespObj} from "./respInterfaceObj"
+import {apiRespObj,ursRespObjList, schVsEntRespObj,rooftopSolarObj} from "./respInterfaceObj"
 
 
 export const getIsgsMarginsData = async (
@@ -88,6 +88,22 @@ export const getOtherRegionSchVsEntData = async (
 ): Promise< schVsEntRespObj| null> => {
   try {
     const resp = await fetch(`/api/getSchVsEntOtherRegion/${targetDate}/${stateAcr}/${fuelType}`, {
+      method: "get",
+    });
+    const respJSON = await resp.json();
+    return respJSON;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};
+
+export const getRooftopSolarData = async (
+  startTime: string, 
+  endTime:string
+): Promise< rooftopSolarObj[]| null> => {
+  try {
+    const resp = await fetch(`/api/getRooftopSolarData/${startTime}/${endTime}`, {
       method: "get",
     });
     const respJSON = await resp.json();

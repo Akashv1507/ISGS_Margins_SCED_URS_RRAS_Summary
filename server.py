@@ -9,6 +9,7 @@ from Src.controllers.rrasApiController import isgsRrasApiController
 from Src.controllers.ursSummaryApiController import ursSumaaryApiController
 from Src.controllers.schVsEntApiController import schVsEntApiController
 from Src.controllers.schVsEntOtherRegionApiController import schVsEntOtherRegionApiController
+from Src.controllers.rooftopSolarController import rooftopSolarApiController
 warnings.filterwarnings("ignore")
 
 app = Flask(__name__)
@@ -24,7 +25,7 @@ app.register_blueprint(isgsRrasApiController)
 app.register_blueprint(ursSumaaryApiController)
 app.register_blueprint(schVsEntApiController)
 app.register_blueprint(schVsEntOtherRegionApiController)
-
+app.register_blueprint(rooftopSolarApiController)
 
 @app.route('/')
 def index():
@@ -50,8 +51,11 @@ def isgsUrsIndex():
 def entitlementVsSchIndex():
     return render_template('entitlementVsSchedule.html.j2')
 
+@app.route('/rooftopSolar')
+def rooftopSolar():
+    return render_template('rooftopSolar.html.j2')
 
-    
+
 if __name__ == '__main__':
     serverMode: str = appConfig['mode']
     if serverMode.lower() == 'd':
