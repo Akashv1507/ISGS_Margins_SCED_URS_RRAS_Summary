@@ -3,11 +3,11 @@ from waitress import serve
 from datetime import datetime as dt, timedelta
 import warnings
 from Src.appConfig import getAppConfig
-from Src.controllers.marginApiController import isgsMarginApiController
-from Src.controllers.scedApiController import isgsScedApiController
-from Src.controllers.rrasApiController import isgsRrasApiController
+from Src.controllers.new_marginApiController import isgsMarginApiController
+from Src.controllers.new_scedApiController import isgsScedApiController
+from Src.controllers.new_rrasApiController import isgsRrasApiController
 from Src.controllers.ursSummaryApiController import ursSumaaryApiController
-from Src.controllers.schVsEntApiController import schVsEntApiController
+from Src.controllers.new_schVsEntApiController import schVsEntApiController
 from Src.controllers.schVsEntOtherRegionApiController import schVsEntOtherRegionApiController
 from Src.controllers.rooftopSolarController import rooftopSolarApiController
 warnings.filterwarnings("ignore")
@@ -61,5 +61,5 @@ if __name__ == '__main__':
     if serverMode.lower() == 'd':
         app.run(host="localhost", port=int(appConfig['flaskPort']), debug=True)
     else:
-        serve(app, host='0.0.0.0', port=int(
-            appConfig['flaskPort']),  threads=1)
+        # serve(app, host='0.0.0.0', port=int(appConfig['flaskPort']),  threads=1)
+        serve(app, host='0.0.0.0', port=int(appConfig['flaskPort']), threads=4, channel_timeout=60)

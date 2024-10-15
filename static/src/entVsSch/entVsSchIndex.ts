@@ -66,6 +66,6 @@ const wrapperFunc = async ()=>{
 
       await fetchTblData()
       await fetchPlotData()
-      await fetchStackedBarPlotData()
+      // await fetchStackedBarPlotData()
 
     }

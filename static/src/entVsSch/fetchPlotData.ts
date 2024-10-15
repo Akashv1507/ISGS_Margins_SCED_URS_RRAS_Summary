@@ -1,4 +1,4 @@
-import {getSchVsEntData, getOtherRegionSchVsEntData} from '../fetchApiData'
+import {getSchVsEntData} from '../fetchApiData'
 import {PlotData, PlotTrace, setPlotTraces } from '../plotUtils'
 import {getPlotData} from "./entVsSchHelperFn"
 import {getStateNameFromAcr} from "./entVsSchHelperFn"
@@ -59,7 +59,7 @@ export const fetchPlotData = async() => {
 
     try{
 
-        let schVsEntData  = await getSchVsEntData(
+        let allSchVsEntData  = await getSchVsEntData(
             targetDateValue, stateAcr, fuelType
         ); 
 
@@ -80,7 +80,8 @@ export const fetchPlotData = async() => {
         let offBarEntVsReqOtherRegionPlot = document.createElement('div');
         offBarEntVsReqOtherRegionPlot.id = `offBarEntVsReqOtherRegionPlot`;
         otherReionPlotsWrapper.appendChild(offBarEntVsReqOtherRegionPlot);
-        
+
+        const schVsEntData= allSchVsEntData.currStateGenRespObj
         const allGenEntOnBarData = schVsEntData['EntOnBar']
         const allGenSdlData = schVsEntData['ScheduleAmount']
         const allGenEntOffBarData = schVsEntData['EntOffBar']
@@ -222,10 +223,10 @@ export const fetchPlotData = async() => {
         );
 
         ////////// Plots for other region except WR  \\\\\\\\\\\\\\\\\\\\\\
-         let otherRegionSchVsEntData  = await getOtherRegionSchVsEntData(
-            targetDateValue, stateAcr, fuelType
-        );
-
+        //  let otherRegionSchVsEntData  = await getOtherRegionSchVsEntData(
+        //     targetDateValue, stateAcr, fuelType
+        // );
+        const otherRegionSchVsEntData= allSchVsEntData.otherStateGenRespObj
         const otherRegionEntOnBarData = otherRegionSchVsEntData['EntOnBar']
         const otherRegionSdlData = otherRegionSchVsEntData['ScheduleAmount']
         const otherRegionEntOffBarData = otherRegionSchVsEntData['EntOffBar']

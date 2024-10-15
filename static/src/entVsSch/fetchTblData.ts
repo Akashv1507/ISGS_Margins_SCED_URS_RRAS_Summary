@@ -49,10 +49,10 @@ export const fetchTblData = async()=> {
 
     try{
 
-        let schVsEntData  = await getSchVsEntData(
+        let schVsEntDataResp  = await getSchVsEntData(
             targetDateValue, stateAcr, fuelType
         ); 
-
+        let schVsEntData = schVsEntDataResp.currStateGenRespObj
         const revNo = schVsEntData['Rev_No']
         revNoDiv.innerHTML = `Current Rev No : ${revNo}`
         revNoDiv.classList.add("blink");

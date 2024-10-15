@@ -44,7 +44,8 @@ const fetchData = async()=>{
         try {
                 let rooftopSolarData= await getRooftopSolarData(
                     startDateValue, endDateValue
-                );  
+                );
+                // console.log(rooftopSolarData)  
                 if (rooftopSolarData==null || rooftopSolarData.length===0)   {
                    errorDiv.classList.add("mt-4", "mb-4", "alert", "alert-danger")
                    errorDiv.innerHTML = "<b>Oops !!! Data Fetch Unsuccessful For Selected Date. Please Try Again</b>" 

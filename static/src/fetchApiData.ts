@@ -1,4 +1,4 @@
-import {apiRespObj,ursRespObjList, schVsEntRespObj,rooftopSolarObj} from "./respInterfaceObj"
+import {apiRespObj,ursRespObjList, schVsEntRespObj,rooftopSolarObj,schVsEntResp} from "./respInterfaceObj"
 
 
 export const getIsgsMarginsData = async (
@@ -68,7 +68,7 @@ export const getSchVsEntData = async (
   targetDate: string, 
   stateAcr:string,
   fuelType:string
-): Promise< schVsEntRespObj| null> => {
+): Promise< schVsEntResp| null> => {
   try {
     const resp = await fetch(`/api/getSchVsEnt/${targetDate}/${stateAcr}/${fuelType}`, {
       method: "get",
@@ -81,22 +81,22 @@ export const getSchVsEntData = async (
   }
 };
 
-export const getOtherRegionSchVsEntData = async (
-  targetDate: string, 
-  stateAcr:string,
-  fuelType:string
-): Promise< schVsEntRespObj| null> => {
-  try {
-    const resp = await fetch(`/api/getSchVsEntOtherRegion/${targetDate}/${stateAcr}/${fuelType}`, {
-      method: "get",
-    });
-    const respJSON = await resp.json();
-    return respJSON;
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
-};
+// export const getOtherRegionSchVsEntData = async (
+//   targetDate: string, 
+//   stateAcr:string,
+//   fuelType:string
+// ): Promise< schVsEntRespObj| null> => {
+//   try {
+//     const resp = await fetch(`/api/getSchVsEntOtherRegion/${targetDate}/${stateAcr}/${fuelType}`, {
+//       method: "get",
+//     });
+//     const respJSON = await resp.json();
+//     return respJSON;
+//   } catch (e) {
+//     console.error(e);
+//     return null;
+//   }
+// };
 
 export const getRooftopSolarData = async (
   startTime: string, 

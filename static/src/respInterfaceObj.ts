@@ -47,6 +47,10 @@ export interface schVsEntRespObj{
   'Rev_No'?:number
 
 }
+export interface schVsEntResp {
+  currStateGenRespObj: schVsEntRespObj;
+  otherStateGenRespObj: schVsEntRespObj;
+}
 
 export interface allGenData{
   [isgsGenName: string]: number[]

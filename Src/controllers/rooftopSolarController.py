@@ -27,11 +27,15 @@ def rooftopSolarApi(startTimeStr:str, endTimeStr:str ):
         roofTopSolarDataDf = roofTopSolarDataDf[(roofTopSolarDataDf['timestamp'] >= startTimeStamp) & (roofTopSolarDataDf['timestamp'] <= endTimeStamp)]
 
         # filling nan where value is zero
-        roofTopSolarDataDf.loc[roofTopSolarDataDf['value'] == 0,'value'] = np.nan
-
-        # handling missing values NANs
-        roofTopSolarDataDf['value'].fillna(method='ffill', inplace= True)
-        roofTopSolarDataDf['value'].fillna(method='bfill', inplace= True)
+        # roofTopSolarDataDf.loc[roofTopSolarDataDf['value'] == 0,'value'] = np.nan
+        try:
+            roofTopSolarDataDf = roofTopSolarDataDf.resample('10min', on='timestamp').mean()   # this will set timestamp as index of dataframe
+            # handling missing values NANs
+            roofTopSolarDataDf['value'].fillna(method='ffill', inplace= True)
+            roofTopSolarDataDf['value'].fillna(method='bfill', inplace= True)
+        except Exception as err:
+            print('error while resampling', err)
+        roofTopSolarDataDf.reset_index(inplace=True)
     except Exception as err:
         print(f'Error while making API call is {err}')
         return []    
