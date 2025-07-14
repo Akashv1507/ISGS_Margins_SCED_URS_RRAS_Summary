@@ -10,6 +10,7 @@ from Src.controllers.ursSummaryApiController import ursSumaaryApiController
 from Src.controllers.new_schVsEntApiController import schVsEntApiController
 from Src.controllers.schVsEntOtherRegionApiController import schVsEntOtherRegionApiController
 from Src.controllers.rooftopSolarController import rooftopSolarApiController
+from Src.controllers.new_downMarginApiController import genDownMarginApiController
 warnings.filterwarnings("ignore")
 
 app = Flask(__name__)
@@ -26,6 +27,7 @@ app.register_blueprint(ursSumaaryApiController)
 app.register_blueprint(schVsEntApiController)
 app.register_blueprint(schVsEntOtherRegionApiController)
 app.register_blueprint(rooftopSolarApiController)
+app.register_blueprint(genDownMarginApiController)
 
 @app.route('/')
 def index():
@@ -55,6 +57,10 @@ def entitlementVsSchIndex():
 def rooftopSolar():
     return render_template('rooftopSolar.html.j2')
 
+@app.route('/genDownMargins')
+def genDownMargins():
+    return render_template('genDownMargins.html.j2')
+
 
 if __name__ == '__main__':
     serverMode: str = appConfig['mode']
@@ -62,4 +68,5 @@ if __name__ == '__main__':
         app.run(host="localhost", port=int(appConfig['flaskPort']), debug=True)
     else:
         # serve(app, host='0.0.0.0', port=int(appConfig['flaskPort']),  threads=1)
-        serve(app, host='0.0.0.0', port=int(appConfig['flaskPort']), threads=4, channel_timeout=60)
+        app.run(host="0.0.0.0", port=int(appConfig['flaskPort']))
+        # serve(app, host='0.0.0.0', port=int(appConfig['flaskPort']), threads=4, channel_timeout=60)

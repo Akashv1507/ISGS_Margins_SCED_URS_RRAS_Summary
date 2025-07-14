@@ -45,6 +45,18 @@ body .container .card:nth-child(4) .box .content a {
   background: #92c123;
 }
 
+body .container .card:nth-child(5) .box .content a {
+  background: #8f4b82;
+}
+
+body .container .card:nth-child(6) .box .content a {
+  background: #3a1bc6;
+}
+
+body .container .card:nth-child(7) .box .content a {
+  background: #ec7e07;
+}
+
 body .container .card .box {
   position: absolute;
   top: 20px;

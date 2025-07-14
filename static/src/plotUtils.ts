@@ -75,7 +75,7 @@ export const setPlotTraces = (divId: string, plotData: PlotData, isRoofTopSolarP
     hovermode:'x',
     autosize: false,
     width: 1700,
-    height: 700,
+    height: 900,
     xaxis: {
       title:'--Time Block--',
       showgrid: false,

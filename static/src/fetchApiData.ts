@@ -16,6 +16,21 @@ export const getIsgsMarginsData = async (
     }
   };
 
+export const getGenDownMarginsData = async (
+    targetDate: string, 
+  ): Promise< apiRespObj| null> => {
+    try {
+      const resp = await fetch(`/api/getGenDownMargins/${targetDate}`, {
+        method: "get",
+      });
+      const respJSON = await resp.json();
+      return respJSON;
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  };
+
 export const getIsgsScedData = async (
   targetDate: string, 
 ): Promise< apiRespObj| null> => {

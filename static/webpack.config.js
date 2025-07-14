@@ -4,6 +4,7 @@ module.exports = {
   // multiple entry points - https://github.com/webpack/docs/wiki/multiple-entry-points
   entry: {
     isgsMargins: ["babel-polyfill", path.resolve(__dirname, "src/isgsMargins.ts")],
+    genDownMargins: ["babel-polyfill", path.resolve(__dirname, "src/genDownMargins.ts")],
     isgsSced: ["babel-polyfill", path.resolve(__dirname, "src/isgsSced.ts")],
     isgsRras: ["babel-polyfill", path.resolve(__dirname, "src/isgsRras.ts")],
     isgsUrs: ["babel-polyfill", path.resolve(__dirname, "src/isgsUrs.ts")],

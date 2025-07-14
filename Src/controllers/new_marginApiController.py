@@ -72,6 +72,6 @@ def isgsMarginsApi(targetDate:str):
     
     return jsonify(genRespObj)
 
-
+#-sced, -scuc, -tras
     
     

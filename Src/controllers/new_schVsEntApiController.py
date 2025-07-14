@@ -73,11 +73,11 @@ def schVsEntIndex(targetDate:str, stateAcr:str, genType:str):
         for genData in filteredSchData:
             sellerAcr = genData['SellerAcronym']
             if genType == 'gasGenList' and (sellerAcr in newWbesGasGenList):
-                schData= genData['FullScheduleData']['ISGSFullScheduleJsonData']['ISGSGasFullScheduleJsonData']['TotalDrwBoundarySchdAmount']
+                schData= genData['FullScheduleData']['ISGSFullScheduleJsonData']['ISGSGasFullScheduleJsonData']['TotalInjBoundarySchdAmount']
                 allGenSchAccumulator[sellerAcr]= schData
                 allGenSchSum = [a + b for a, b in zip(allGenSchSum, schData)]
             elif genType =='thermalGenList' and (sellerAcr in newWbesThermalGenList):
-                schData = genData['FullScheduleData']['ISGSFullScheduleJsonData']['ISGSThermalFullScheduleJsonData']['TotalDrwBoundarySchdAmount']
+                schData = genData['FullScheduleData']['ISGSFullScheduleJsonData']['ISGSThermalFullScheduleJsonData']['TotalInjBoundarySchdAmount']
                 allGenSchAccumulator[sellerAcr]= schData
                 allGenSchSum = [a + b for a, b in zip(allGenSchSum, schData)]
         
@@ -89,9 +89,9 @@ def schVsEntIndex(targetDate:str, stateAcr:str, genType:str):
                 isgsGenType= genData['FullScheduleData']['ISGSFullScheduleJsonData']['ISGSGeneratorTypeName']
                 schData=[0 for i in range(1,97)]
                 if isgsGenType== 'THERMAL':
-                    schData = genData['FullScheduleData']['ISGSFullScheduleJsonData']['ISGSThermalFullScheduleJsonData']['TotalDrwBoundarySchdAmount']
+                    schData = genData['FullScheduleData']['ISGSFullScheduleJsonData']['ISGSThermalFullScheduleJsonData']['TotalInjBoundarySchdAmount']
                 elif isgsGenType == 'GAS':
-                    schData= genData['FullScheduleData']['ISGSFullScheduleJsonData']['ISGSGasFullScheduleJsonData']['TotalDrwBoundarySchdAmount']
+                    schData= genData['FullScheduleData']['ISGSFullScheduleJsonData']['ISGSGasFullScheduleJsonData']['TotalInjBoundarySchdAmount']
                 elif isgsGenType == 'HYDRO':
                     schData= genData['FullScheduleData']['ISGSFullScheduleJsonData']['ISGSHydroFullScheduleJsonData']['SchdAmount']
                 allGenSchAccumulator_otherState[sellerAcr]= schData
